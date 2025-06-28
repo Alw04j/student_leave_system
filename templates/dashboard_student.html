@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<div class="flex flex-col min-h-[70vh]">
+  <div>
+    <h2 class="text-2xl font-bold mb-4">Your Leave Requests</h2>
+    <a href="{% url 'apply_leave' %}" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full transition mb-6">
+      + Apply for Leave
+    </a>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for leave in leaves %}
+        <div class="bg-gray-800 p-4 rounded-xl shadow-md border border-gray-700">
+          <p><span class="font-semibold text-gray-300">Date:</span>
+            {% if leave.from_date == leave.to_date %}
+              {{ leave.from_date }}
+            {% else %}
+              {{ leave.from_date }} to {{ leave.to_date }}
+            {% endif %}
+          </p>
+          <p><span class="font-semibold text-gray-300">Status:</span>
+            {% if leave.status == 'approved' %}
+              <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm ml-2">Approved</span>
+            {% elif leave.status == 'pending' %}
+              <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm ml-2">Pending</span>
+            {% elif leave.status == 'rejected' %}
+              <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm ml-2">Rejected</span>
+            {% else %}
+              <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm ml-2">Unknown</span>
+            {% endif %}
+          </p>
+          <p><span class="font-semibold text-gray-300">Reason:</span> {{ leave.reason }}</p>
+        </div>
+      {% empty %}
+        <div class="col-span-full flex flex-col items-center justify-center text-center mt-24 animate-fade-in">
+          <div class="text-5xl animate-bounce mb-2">📝</div>
+          <p class="text-gray-400 text-lg mb-4">No leave requests yet.</p>
+          <a href="{% url 'apply_leave' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full shadow-lg transition">
+            Apply Now
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if leaves.has_other_pages %}
+    <div class="mt-auto pt-10 flex justify-center items-center gap-2">
+      {% if leaves.has_previous %}
+        <a href="?page={{ leaves.previous_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Prev</a>
+      {% endif %}
+      <span class="text-gray-300 px-3">Page {{ leaves.number }} of {{ leaves.paginator.num_pages }}</span>
+      {% if leaves.has_next %}
+        <a href="?page={{ leaves.next_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Next</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

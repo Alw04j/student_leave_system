@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Student Leave Management System{% endblock %}
+
+{% block content %}
+<section class="text-center max-w-3xl mx-auto mt-16 px-4">
+  <h1 class="text-4xl font-bold mb-4">Student Leave Management System</h1>
+  <p class="text-gray-300 text-lg mb-6">
+    A web application designed for managing student leave requests efficiently.
+  </p>
+  <p class="text-gray-400 mb-8">
+    🎓 Built as a mini project by <span class="text-white font-semibold">Alwin (BCA 2023–2026)</span> at 
+    <span class="text-white font-semibold">Mar Augusthinose College, Ramapuram</span><br>
+    🧑‍🏫 Made for use by students and class teachers.
+  </p>
+</section>
+
+<!-- Login Buttons Section -->
+<section id="login-section" class="flex flex-col md:flex-row justify-center gap-10 mt-12 px-4">
+  <a href="{% url 'student_login' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl shadow-lg text-lg flex items-center gap-3 transition-all">
+    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M5.121 17.804A9 9 0 0112 15a9 9 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+    Login as Student
+  </a>
+
+  <a href="{% url 'teacher_login' %}" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl shadow-lg text-lg flex items-center gap-3 transition-all">
+    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
+         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0H5m7 0h7" />
+    </svg>
+    Login as Teacher
+  </a>
+</section>
+<section class="text-center text-gray-400 mt-20 max-w-xl mx-auto">
+  <h3 class="text-xl font-semibold mb-4">About the Project</h3>
+  <p class="text-sm">
+    This is a <strong>Student Leave Management System</strong> built using Django, Tailwind CSS, and SQLite as part of my BCA Mini Project at MAC Ramapuram.
+  </p>
+  <p class="mt-2 text-sm">
+    The system allows students to apply for leave and teachers to manage requests efficiently — all through a modern, user-friendly interface.
+  </p>
+</section>
+
+{% endblock %}

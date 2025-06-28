@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+<div class="max-w-5xl mx-auto mt-10 px-4 text-white">
+  <h2 class="text-2xl font-bold mb-6">Welcome, {{ user.username }}</h2>
+
+  <div class="flex gap-4 mb-8">
+    <a href="{% url 'view_leave_requests' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
+      View Leave Requests
+    </a>
+    <a href="{% url 'past_requests' %}" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow">
+      Past Leave Requests
+    </a>
+    <a href="{% url 'profile' %}" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">
+      Update Profile
+    </a>
+  </div>
+  
+
+  <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+    <h3 class="text-xl font-semibold mb-4">Students & Leave Summary</h3>
+    <table class="w-full table-auto text-left">
+      <thead>
+        <tr class="text-gray-300 border-b border-gray-600">
+          <th class="pb-2">Student</th>
+          <th class="pb-2">Total Leaves Taken</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student, count in leave_summary %}
+        <tr class="border-b border-gray-700">
+          <td class="py-2">{{ student }}</td>
+          <td class="py-2">{{ count }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2" class="py-2 text-gray-400">No leave records found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

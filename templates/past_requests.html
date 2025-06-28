@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Manage Leave Requests{% endblock %}
+{% block content %}
+<div class="flex flex-col min-h-[70vh]">
+  <h2 class="text-xl font-bold mb-4">Pending Leave Requests</h2>
+
+  <div>
+    {% for req in requests %}
+      <div class="bg-gray-800 p-4 mb-4 rounded">
+        <p><strong>Student:</strong> {{ req.student.username }}</p>
+        <p><strong>Date:</strong>
+          {% if req.from_date == req.to_date %}
+            {{ req.from_date }}
+          {% else %}
+            {{ req.from_date }} to {{ req.to_date }}
+          {% endif %}
+        </p>
+        <p><strong>Reason:</strong> {{ req.reason }}</p>
+        <p><strong>Status:</strong> {{ req.status|title }}</p>
+
+        {% if req.status == 'pending' %}
+        <form method="post" class="mt-2">
+          {% csrf_token %}
+          <input type="hidden" name="request_id" value="{{ req.id }}">
+          <textarea name="review_msg" placeholder="Optional message" class="w-full p-2 rounded mb-2 text-black"></textarea>
+          <button type="submit" name="action" value="approved" class="bg-green-500 px-4 py-1 rounded mr-2">Approve</button>
+          <button type="submit" name="action" value="rejected" class="bg-red-500 px-4 py-1 rounded">Reject</button>
+        </form>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p class="text-gray-400 mt-20 text-center">No leave requests pending.</p>
+    {% endfor %}
+  </div>
+
+  {% if requests.has_other_pages %}
+    <div class="mt-auto pt-10 flex justify-center items-center gap-2">
+      {% if requests.has_previous %}
+        <a href="?page={{ requests.previous_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Prev</a>
+      {% endif %}
+      <span class="text-gray-300 px-3">Page {{ requests.number }} of {{ requests.paginator.num_pages }}</span>
+      {% if requests.has_next %}
+        <a href="?page={{ requests.next_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Next</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

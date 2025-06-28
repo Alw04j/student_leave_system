@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Manage Leave Requests{% endblock %}
+{% block content %}
+<h2 class="text-xl font-bold mb-4">Pending Leave Requests</h2>
+
+{% for req in requests %}
+<div class="bg-gray-800 p-4 mb-4 rounded">
+  <p><strong>Student:</strong> {{ req.student.username }}</p>
+  <p><strong>Date:</strong>
+    {% if req.from_date == req.to_date %}
+      {{ req.from_date }}
+    {% else %}
+      {{ req.from_date }} to {{ req.to_date }}
+    {% endif %}
+  </p>
+  <p><strong>Reason:</strong> {{ req.reason }}</p>
+  <p><strong>Status:</strong> {{ req.status|title }}</p>
+
+  {% if req.status == 'pending' %}
+  <form method="post" class="mt-2">
+    {% csrf_token %}
+    <input type="hidden" name="request_id" value="{{ req.id }}">
+    <textarea name="review_msg" placeholder="Optional message" class="w-full p-2 rounded mb-2 text-black"></textarea>
+    <button type="submit" name="action" value="approved" class="bg-green-500 px-4 py-1 rounded mr-2">Approve</button>
+    <button type="submit" name="action" value="rejected" class="bg-red-500 px-4 py-1 rounded">Reject</button>
+  </form>
+  {% endif %}
+</div>
+{% empty %}
+<p>No leave requests.</p>
+{% endfor %}
+{% if leaves.has_other_pages %}
+  <div class="mt-6 flex justify-center items-center gap-2">
+    {% if leaves.has_previous %}
+      <a href="?page={{ leaves.previous_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Prev</a>
+    {% endif %}
+
+    <span class="text-gray-300 px-3">Page {{ leaves.number }} of {{ leaves.paginator.num_pages }}</span>
+
+    {% if leaves.has_next %}
+      <a href="?page={{ leaves.next_page_number }}" class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-gray-600">Next</a>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% endblock %}

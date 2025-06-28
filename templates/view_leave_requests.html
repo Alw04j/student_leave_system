@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Student Leave Requests{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-6">Leave Requests from Students</h2>
+
+<div class="grid gap-4 md:grid-cols-2">
+  {% for request in leave_requests %}
+  <div class="bg-gray-800 p-4 rounded-lg shadow border border-gray-700">
+    <p><strong>Student:</strong> {{ request.student.username }}</p>
+    <p><strong>From:</strong> {{ request.from_date }}</p>
+    <p><strong>To:</strong> {{ request.to_date }}</p>
+    <p><strong>Status:</strong> 
+      <span class="{% if request.status == 'approved' %}text-green-400{% elif request.status == 'rejected' %}text-red-400{% else %}text-yellow-300{% endif %}">
+        {{ request.status|title }}
+      </span>
+    </p>
+  </div>
+  {% empty %}
+  <p class="text-gray-400">No leave requests to display.</p>
+  {% endfor %}
+</div>
+{% endblock %}

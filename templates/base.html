@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}Student Leave Management{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      <style>
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-in-out both;
+        }
+      </style>
+      
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen flex flex-col">
+
+    <!-- 🌟 Project Name Header -->
+    <header class="bg-gray-900 text-center py-4 border-b border-gray-700 shadow-md">
+      <h1 class="text-3xl font-extrabold text-blue-400">Student Leave Management System</h1>
+    </header>
+
+    <!-- 🧭 Navigation -->
+    <nav class="bg-gray-800 p-4 text-center text-lg font-semibold flex justify-between items-center px-6">
+      {% if user.is_authenticated %}
+        <div>
+          <a href="{% url 'dashboard' %}" class="px-2 hover:text-blue-400">Home</a>
+          <a href="{% url 'profile' %}" class="px-2 hover:text-blue-400">Profile</a>
+        </div>
+        <div class="flex items-center gap-4">
+          {% if user.profile_pic %}
+            <img src="{{ user.profile_pic.url }}" alt="Profile"
+              class="w-10 h-10 rounded-full object-cover border border-gray-500" />
+          {% endif %}
+          <form action="{% url 'logout' %}" method="post" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="text-red-400 hover:text-red-600 bg-transparent border-none">Logout</button>
+          </form>
+        </div>
+      {% else %}
+        <div class="mx-auto">
+          <a href="{% url 'choice_page' %}" class="px-2 hover:text-blue-400">Home</a>
+        </div>
+      {% endif %}
+    </nav>
+    
+    
+
+    <!-- 🔽 Page Content -->
+    <main class="p-6 flex-grow">
+      {% if messages %}
+        <ul class="mb-4">
+          {% for message in messages %}
+            <li class="bg-red-500 text-white p-2 rounded mb-2">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- 👣 Footer -->
+    <footer class="bg-gray-800 text-gray-400 text-center py-4 mt-auto border-t border-gray-700">
+      <p class="text-sm">© {{ now|date:"Y" }} MAC Ramapuram | Built by Alwin as a Mini Project</p>
+    </footer>
+
+    <!-- 🔗 Smooth Scrolling Script -->
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+
+  </body>
+</html>

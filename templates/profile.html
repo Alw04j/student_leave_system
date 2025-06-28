@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Student Profile{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto mt-10 bg-gray-800 text-white p-6 rounded-xl shadow-lg border border-gray-700">
+  <h2 class="text-2xl font-bold mb-6 text-center">Update Student Profile</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="space-y-5">
+    {% csrf_token %}
+
+    <div>
+      <label class="block mb-1 font-semibold">Username</label>
+      <input type="text" name="username" value="{{ user.username }}"
+        class="w-full px-3 py-2 bg-gray-900 text-white border border-gray-600 rounded">
+    </div>
+
+    <div>
+      <label class="block mb-1 font-semibold">New Password <span class="text-sm text-gray-400">(optional)</span></label>
+      <input type="password" name="password"
+        class="w-full px-3 py-2 bg-gray-900 text-white border border-gray-600 rounded">
+    </div>
+
+    <div>
+      <label class="block mb-1 font-semibold">Profile Picture</label>
+      <input type="file" name="profile_pic"
+        class="w-full px-3 py-2 bg-gray-900 text-white border border-gray-600 rounded cursor-pointer">
+      {% if user.profile_pic %}
+        <img src="{{ user.profile_pic.url }}" alt="Current Profile Pic"
+          class="mt-4 w-24 h-24 object-cover rounded-full border border-gray-500">
+      {% endif %}
+    </div>
+
+    <button type="submit"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-full transition">
+      Save Changes
+    </button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Apply for Leave{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto bg-gray-800 text-white p-6 rounded-xl shadow-lg border border-gray-700 mt-10">
+  <h2 class="text-2xl font-bold mb-6 text-center text-white">Apply for Leave</h2>
+
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="bg-red-500 text-white p-2 rounded">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div>
+      <label class="flex items-center space-x-2 text-base font-semibold text-gray-200">
+        <input type="checkbox" name="single_day" id="single_day" class="w-5 h-5 accent-blue-600">
+        <span>Single Day Leave?</span>
+      </label>
+    </div>    
+
+    {% for field in form %}
+      {% if field.name != 'single_day' %}
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-300">{{ field.label }}</label>
+      {{ field|add_class:"w-full px-3 py-2 bg-gray-900 text-white border border-gray-600 rounded" }}
+      {% for error in field.errors %}
+        <p class="text-red-400 text-sm mt-1">{{ error }}</p>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-full transition">
+      Submit
+    </button>
+  </form>
+
+  <script>
+    const checkbox = document.getElementById("single_day");
+    const fromDate = document.getElementById("id_from_date");
+    const toDate = document.getElementById("id_to_date");
+
+    function toggleToDate() {
+      if (checkbox.checked) {
+        toDate.value = fromDate.value;
+        toDate.setAttribute("disabled", "disabled");
+      } else {
+        toDate.removeAttribute("disabled");
+      }
+    }
+
+    checkbox.addEventListener("change", toggleToDate);
+    fromDate.addEventListener("change", () => {
+      if (checkbox.checked) {
+        toDate.value = fromDate.value;
+      }
+    });
+
+    toggleToDate(); // Run once on page load
+  </script>
+</div>
+{% endblock %}
