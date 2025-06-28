@@ -1,5 +1,4 @@
-# Create .gitignore file
-echo "# Django
+# Django
 *.log
 *.pot
 *.pyc
@@ -33,4 +32,4 @@ staticfiles/
 
 # Coverage reports
 htmlcov/
-.coverage" > .gitignore
+.coverage
