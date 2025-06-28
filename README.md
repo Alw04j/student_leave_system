@@ -72,7 +72,7 @@ A comprehensive Django web application for managing student leave requests in ed
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/student_leave_system.git
+   git clone https://github.com/Alw04j/student_leave_system.git
    cd student_leave_system
    ```
 
@@ -182,32 +182,34 @@ The system uses SQLite by default for development. For production, configure MyS
 - **Heroku**: Classic Django hosting platform
 - **DigitalOcean**: VPS hosting for advanced users
 
-## �� Project Structure
+## 📁 Project Structure
+
+```
 student_leave_system/
-├── core/ # Main Django application
-│ ├── models.py # Database models
-│ ├── views.py # Business logic and views
-│ ├── forms.py # Form definitions and validation
-│ ├── admin.py # Django admin configuration
-│ ├── urls.py # URL routing
-│ └── migrations/ # Database migrations
-├── templates/ # HTML templates
-│ ├── base.html # Base template
-│ ├── dashboard_student.html
-│ ├── dashboard_teacher.html
-│ ├── apply_leave.html
-│ ├── manage_requests.html
-│ └── ... # Other templates
-├── media/ # User uploads (profile pictures)
-├── leave_mgmt/ # Django project settings
-│ ├── settings.py # Project configuration
-│ ├── urls.py # Main URL configuration
-│ └── wsgi.py # WSGI configuration
-├── requirements.txt # Python dependencies
-└── manage.py # Django management script
+├── core/                     # Main Django application
+│   ├── models.py            # Database models
+│   ├── views.py             # Business logic and views
+│   ├── forms.py             # Form definitions and validation
+│   ├── admin.py             # Django admin configuration
+│   ├── urls.py              # URL routing
+│   └── migrations/          # Database migrations
+├── templates/               # HTML templates
+│   ├── base.html           # Base template
+│   ├── dashboard_student.html
+│   ├── dashboard_teacher.html
+│   ├── apply_leave.html
+│   ├── manage_requests.html
+│   └── ...                 # Other templates
+├── media/                   # User uploads (profile pictures)
+├── leave_mgmt/             # Django project settings
+│   ├── settings.py         # Project configuration
+│   ├── urls.py             # Main URL configuration
+│   └── wsgi.py             # WSGI configuration
+├── requirements.txt         # Python dependencies
+└── manage.py               # Django management script
+```
 
-
-## 🎯 Key Workflows
+## 🔄 Key Workflows
 
 ### Leave Application Process
 1. Student logs in and navigates to "Apply Leave"
@@ -245,18 +247,13 @@ This project demonstrates:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+**Alwin Jojy**
+- GitHub: [@Alw04j](https://github.com/Alw04j)
+- Email: alwinjojy2020@gmail.com
 
-## 🎓 Acknowledgments
+## 🙏 Acknowledgments
 
 - Django framework and community for the excellent web framework
 - Bootstrap team for the responsive CSS framework
@@ -266,7 +263,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email your.email@example.com or create an issue in the GitHub repository.
+For support, email alwinjojy2020@gmail.com or create an issue in the GitHub repository.
 
 ---
 
