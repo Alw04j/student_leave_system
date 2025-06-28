@@ -203,11 +203,7 @@ from django.shortcuts import redirect
 
 from django.views.decorators.cache import never_cache
 
-@never_cache
-def choice_page(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard')  # or redirect accordingly
-    return render(request, 'choice.html')
+
 
 
 
