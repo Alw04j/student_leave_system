@@ -8,8 +8,22 @@ from django.core.paginator import Paginator
 
 
 def choice_page(request):
+    print(f"DEBUG: User authenticated: {request.user.is_authenticated}")
+    print(f"DEBUG: User is superuser: {request.user.is_superuser}")
+    print(f"DEBUG: User username: {request.user.username}")
+    
     if request.user.is_superuser:
+        print("DEBUG: Redirecting superuser to admin")
         return redirect('/admin/')
+    elif request.user.is_authenticated:
+        if request.user.is_student:
+            print("DEBUG: Redirecting student to student dashboard")
+            return redirect('student_dashboard')
+        elif request.user.is_teacher:
+            print("DEBUG: Redirecting teacher to teacher dashboard")
+            return redirect('teacher_dashboard')
+    
+    print("DEBUG: Rendering choice page")
     return render(request, 'choice.html')
 
 from django.contrib import messages
